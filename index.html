@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Out</title>
+    <style>
+        html, body { 
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .box {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: boxAnimation 1.5s ease-out;
+        }
+
+        @keyframes boxAnimation {
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        button {
+            margin: 15px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+        }
+
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .message {
+            font-family: 'Arial', sans-serif;
+            font-size: 1.6em;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateY(-20px);
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .crying {
+            font-size: 3em;
+            color: red;
+            margin-top: 20px;
+            animation: cryAnimation 1s ease-in-out infinite;
+        }
+
+        @keyframes cryAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <p style="font-size: 1.8em; font-weight: bold; color: #333;">Will you go out with me?</p>
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('yesBtn').addEventListener('click', () => {
+            const message = document.getElementById('message');
+            message.innerHTML = '<p style="font-family: \'Comic Sans MS\', cursive, sans-serif; color: #4CAF50;">Yay! I’m so excited! ❤️</p>';
+            message.classList.add('show');
+        });
+
+        document.getElementById('noBtn').addEventListener('click', () => {
+            let box = document.querySelector('.box');
+            let noBtn = document.getElementById('noBtn');
+            
+            let boxWidth = box.clientWidth;
+            let boxHeight = box.clientHeight;
+            let buttonWidth = noBtn.clientWidth;
+            let buttonHeight = noBtn.clientHeight;
+
+            let maxX = boxWidth - buttonWidth;
+            let maxY = boxHeight - buttonHeight;
+
+            let randomX = Math.floor(Math.random() * maxX);
+            let randomY = Math.floor(Math.random() * maxY);
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+
+            const message = document.getElementById('message');
+            message.innerHTML = '<div class="crying">😢</div>';
+            message.classList.add('show');
+        });
+    </script>
+</body>
+</html>
+
